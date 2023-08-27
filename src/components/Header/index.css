@@ -1,0 +1,47 @@
+
+section header {
+    padding: 32px;
+    padding-left: 64px;
+    /* align items to middle */
+    line-height: 60px;
+}
+section header div {
+    display: inline-block;
+}
+
+div.greeting {
+    font-size: 32px;
+    font-weight: light;
+    opacity: 0.8;
+    /* make font thinner */
+    color: var(--background-primary);
+
+    margin-bottom: 16px;
+}
+
+div.add-task {
+    float: right;
+    position: absolute;
+    right: 32px;
+    top: 40px;
+}
+
+div.add-task button {
+    border: none;
+    background-color: var(--active-color);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    box-shadow:
+        0px 2.8px 2.5px rgba(0, 0, 0, 0.038),
+        0px 6.7px 6.1px rgba(0, 0, 0, 0.057),
+        0px 12.5px 11.5px rgba(0, 0, 0, 0.068),
+        0px 22.3px 20.5px rgba(0, 0, 0, 0.076),
+        0px 41.8px 38.4px rgba(0, 0, 0, 0.087),
+        0px 100px 92px rgba(0, 0, 0, 0.11)
+        ;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
