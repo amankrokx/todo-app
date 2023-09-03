@@ -1,0 +1,51 @@
+
+section.bottom div.cards .card {
+    height: 100px;
+    display: flex;
+}
+
+
+.card .icon,
+.card .info {
+    padding: 8px;
+}
+.card .info {
+    width: 100%;
+    padding: 14px;
+}
+.card .icon span {
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 2px;
+}
+    
+.card .info .title {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    opacity: 0.8;
+    justify-content: space-between;
+    
+}
+.card .info .note {
+    padding: 8px 0;
+    opacity: 0.5;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+.card .info .pill span {
+    margin-right: 8px;
+    font-size: small;
+}
+
+.card .info .pill {
+    display: flex;
+    border-radius: 999999px;
+    font-size: small;
+    font-weight: bolder;
+    color: var(--background-primary);
+    padding: 4px 8px;
+    width: min-content;
+    align-items: center;
+    background-color: red;
+}

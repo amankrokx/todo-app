@@ -1,0 +1,21 @@
+
+section.bottom {
+    height: 60vh;
+    padding: 24px;
+    overflow-y: scroll;
+    padding-bottom: 0;
+    background-color: var(--background-primary);
+}
+
+section.bottom h5 {
+    font-weight: regular;
+    opacity: 0.75;
+    font-size: 1em;
+    padding-bottom: 24px;
+}
+
+section.bottom div.cards {
+    height: calc(100% - 48px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
