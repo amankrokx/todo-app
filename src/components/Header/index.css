@@ -24,9 +24,11 @@ div.add-task {
     position: absolute;
     right: 32px;
     top: 40px;
+    display: flex;
 }
 
 div.add-task button {
+    margin-left: 1em;
     border: none;
     background-color: var(--active-color);
     border-radius: 50%;

@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import Context from '../Context/index.jsx';
+import fetchCustomServerData from '../server/index.js';
 import './index.css';
 
 function Weather () {
     const [city, setCity] = useState("")
     const [temperature, setTemperature] = useState(0)
+    const { user } = useContext(Context)
 
     function getLocation () {
         return new Promise((resolve, reject) => {
@@ -51,9 +54,14 @@ function Weather () {
             const { city = "N/A", country = "N/A", lat, lon } = await getLocation()
             setCity(`${city}, ${country}`)
             if (!lat || !lon) throw new Error("Location not found")
-    
-            const weather = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=b1741d4b9a702da375fddc8571ba4eaa`).then(res => res.json())
-            setTemperature(Math.round(weather.main.temp - 273.15))
+            const weather = await fetchCustomServerData(`/weather/${lat}/${lon}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${user.token}`,
+                },
+            })
+            setTemperature(Math.round(weather.weather.main.temp - 273.15))
         })()
     }, [])
 

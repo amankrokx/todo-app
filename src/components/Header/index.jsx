@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import Context from "../Context/index.jsx";
+import fetchCustomServerData from "../server/index.js";
 import "./index.css";
 
 function Header () {
 
-    const { currentDate: date, setIter } = useContext(Context)
+    const { currentDate: date, setIter, user, setUser } = useContext(Context)
 
     console.log("Header rendered");
     function getCurrentTime () {
@@ -33,28 +34,49 @@ function Header () {
     }
 
     function addTaskToLocalStorage () {
-        const task = getTask();
+        const task = getTask()
         if (!task) {
-            return;
+            return
         }
+
+        // date is in hours, change to unix timestamp
+        const today = new Date();
+        today.setDate(date);
+
         // get data from local storage
-        let tasks = localStorage.getItem("tasks");
-        const key = date
-        if (!tasks) {
-            tasks = {
-                [key]: [task]
-            }
-        } else {
-            tasks = JSON.parse(tasks);
-            if (tasks[key]) {
-                tasks[key].push(task);
-            } else {
-                tasks[key] = [task];
-            }
+        // call api PUT /todo
+        /*
+        {
+            "body": "My Second todo on backend",
+            "data": {
+                "tags": ["test", "dev"]
+            },
+            "at": 1695025932609
         }
-        const tasksString = JSON.stringify(tasks);
-        localStorage.setItem("tasks", tasksString);
-        setIter(i => i + 1);
+        */
+        fetchCustomServerData("/todo", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${user.token}`
+            },
+            body: JSON.stringify({
+                body: task,
+                data: {
+                    tags: ["test", "dev"]
+                },
+                at: today.getTime()
+            })
+        })
+            .then(res => {
+                if (res.todo) {
+                    setIter(i => i + 1)
+                }
+                else {
+                    alert(res.message || "Something went wrong")
+                }
+
+            })
     }
 
     return <header>
@@ -62,6 +84,12 @@ function Header () {
         <div className="add-task">
             <button className="btn" onClick={addTaskToLocalStorage}>
                 <span className="material-icons">add</span>
+            </button>
+            <button className="btn" onClick={() => {
+                localStorage.removeItem("token")
+                setUser({ token: null })
+            }}>
+                <span className="material-icons">logout</span>
             </button>
         </div>
     </header>
